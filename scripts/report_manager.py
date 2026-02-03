@@ -2,6 +2,8 @@
 """
 Venezuela Super Lawyer - Report Manager
 Manages automatic generation and updating of legal research reports in Markdown format.
+
+PROTECTED FILE - Requires authentication via VSL_ACCESS_KEY environment variable.
 """
 
 import os
@@ -11,6 +13,14 @@ import re
 from datetime import datetime
 from pathlib import Path
 from typing import Optional, List, Dict
+
+# Import security module for authentication
+try:
+    from security import verify_access, require_auth
+except ImportError:
+    # If running from different directory
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from security import verify_access, require_auth
 
 # Default reports directory
 DEFAULT_REPORTS_DIR = "reportes_legales"
@@ -384,8 +394,9 @@ def get_latest_report(base_dir: str = None) -> Optional[Path]:
     return Path(reports[0]['path'])
 
 
+@require_auth
 def main():
-    """Main function for CLI usage."""
+    """Main function for CLI usage. Requires authentication."""
 
     if len(sys.argv) < 2:
         print("Venezuela Super Lawyer - Report Manager")

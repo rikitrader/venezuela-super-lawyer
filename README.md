@@ -97,9 +97,9 @@ venezuela-super-lawyer/
 
 ### Setup Instructions
 
-1. **Clone the repository** (authorized users only):
+1. **Clone the repository**:
    ```bash
-   git clone [PRIVATE_REPOSITORY_URL]
+   git clone https://github.com/rikitrader/venezuela-super-lawyer.git
    cd venezuela-super-lawyer
    ```
 
@@ -109,15 +109,40 @@ venezuela-super-lawyer/
    # Edit .env with your credentials
    ```
 
-3. **Set access password**:
+3. **Set access password** (REQUIRED for all protected operations):
    ```bash
-   export VSL_ACCESS_KEY="your_secure_password"
+   export VSL_ACCESS_KEY="<your_password>"
    ```
 
-4. **Verify installation**:
+4. **Verify authentication**:
    ```bash
+   python3 scripts/security.py verify
+   ```
+
+5. **Run protected scripts**:
+   ```bash
+   # All core scripts require VSL_ACCESS_KEY to be set
    python3 scripts/report_manager.py list
    ```
+
+### Password Protection
+
+All core functionality is protected by password authentication:
+
+```
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         🔒 PASSWORD PROTECTED 🔒                             ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║                                                                              ║
+║  All scripts require authentication via VSL_ACCESS_KEY environment variable  ║
+║                                                                              ║
+║  Without valid credentials:                                                  ║
+║  • Scripts will not execute                                                  ║
+║  • Access attempts are logged                                                ║
+║  • System displays ACCESS DENIED                                             ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+```
 
 ## Usage
 

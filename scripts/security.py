@@ -18,13 +18,22 @@ from pathlib import Path
 # Environment variable for access key
 ACCESS_KEY_VAR = "VSL_ACCESS_KEY"
 
+# Hashed password for verification (SHA-256)
+# NEVER store plain text passwords
+VALID_PASSWORD_HASH = "cb457be0f71c4d409eeec0146f2baacc33da8f941cb9182680b58805c6b61cee"
+
 # Protected file patterns
 PROTECTED_FILES = [
     "SKILL.md",
     "scripts/report_manager.py",
     "scripts/constitutional_test.py",
+    "scripts/init_case.py",
+    "scripts/gaceta_verify.py",
+    "scripts/tsj_search.py",
     "reportes_legales/*.md",
-    "cases/**/*"
+    "cases/**/*",
+    "references/*.md",
+    "assets/templates/*.md"
 ]
 
 # Audit log path
@@ -119,19 +128,37 @@ def print_access_granted() -> None:
 
 
 def verify_access() -> bool:
-    """Verify access key is valid."""
+    """Verify access key is valid against stored hash."""
     key = get_access_key()
 
     if not key:
-        print_access_denied("VSL_ACCESS_KEY not set")
+        print_access_denied("VSL_ACCESS_KEY not set. Export VSL_ACCESS_KEY=<password>")
         return False
 
-    if len(key) < 8:
-        print_access_denied("Invalid access key format")
+    # Hash the provided key and compare
+    provided_hash = hash_key(key)
+
+    if provided_hash != VALID_PASSWORD_HASH:
+        log_access("Authentication attempt", False, "Invalid password")
+        print_access_denied("Invalid access key. Access denied.")
         return False
 
+    log_access("Authentication", True, "Valid credentials")
     print_access_granted()
     return True
+
+
+def authenticate(password: str = None) -> bool:
+    """Authenticate with password directly or from environment."""
+    if password:
+        provided_hash = hash_key(password)
+        if provided_hash == VALID_PASSWORD_HASH:
+            log_access("Direct authentication", True)
+            return True
+        else:
+            log_access("Direct authentication", False, "Invalid password")
+            return False
+    return verify_access()
 
 
 def is_file_protected(filepath: str) -> bool:
