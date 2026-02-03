@@ -1,289 +1,222 @@
 # Venezuela Super Lawyer
 
 ```
-      ██╗   ██╗███████╗███╗   ██╗███████╗███████╗██╗   ██╗███████╗██╗      █████╗
-      ██║   ██║██╔════╝████╗  ██║██╔════╝╚══███╔╝██║   ██║██╔════╝██║     ██╔══██╗
-      ██║   ██║█████╗  ██╔██╗ ██║█████╗    ███╔╝ ██║   ██║█████╗  ██║     ███████║
-      ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██╔══╝   ███╔╝  ██║   ██║██╔══╝  ██║     ██╔══██║
-       ╚████╔╝ ███████╗██║ ╚████║███████╗███████╗╚██████╔╝███████╗███████╗██║  ██║
-        ╚═══╝  ╚══════╝╚═╝  ╚═══╝╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝
+        ██╗   ██╗███████╗███╗   ██╗███████╗███████╗██╗   ██╗███████╗██╗      █████╗
+        ██║   ██║██╔════╝████╗  ██║██╔════╝╚══███╔╝██║   ██║██╔════╝██║     ██╔══██╗
+        ██║   ██║█████╗  ██╔██╗ ██║█████╗    ███╔╝ ██║   ██║█████╗  ██║     ███████║
+        ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██╔══╝   ███╔╝  ██║   ██║██╔══╝  ██║     ██╔══██║
+         ╚████╔╝ ███████╗██║ ╚████║███████╗███████╗╚██████╔╝███████╗███████╗██║  ██║
+          ╚═══╝  ╚══════╝╚═╝  ╚═══╝╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝
 
-      ███████╗██╗   ██╗██████╗ ███████╗██████╗     ██╗      █████╗ ██╗    ██╗██╗   ██╗███████╗██████╗
-      ██╔════╝██║   ██║██╔══██╗██╔════╝██╔══██╗    ██║     ██╔══██╗██║    ██║╚██╗ ██╔╝██╔════╝██╔══██╗
-      ███████╗██║   ██║██████╔╝█████╗  ██████╔╝    ██║     ███████║██║ █╗ ██║ ╚████╔╝ █████╗  ██████╔╝
-      ╚════██║██║   ██║██╔═══╝ ██╔══╝  ██╔══██╗    ██║     ██╔══██║██║███╗██║  ╚██╔╝  ██╔══╝  ██╔══██╗
-      ███████║╚██████╔╝██║     ███████╗██║  ██║    ███████╗██║  ██║╚███╔███╔╝   ██║   ███████╗██║  ██║
-      ╚══════╝ ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═╝    ╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝    ╚═╝   ╚══════╝╚═╝  ╚═╝
+        ███████╗██╗   ██╗██████╗ ███████╗██████╗     ██╗      █████╗ ██╗    ██╗██╗   ██╗███████╗██████╗
+        ██╔════╝██║   ██║██╔══██╗██╔════╝██╔══██╗    ██║     ██╔══██╗██║    ██║╚██╗ ██╔╝██╔════╝██╔══██╗
+        ███████╗██║   ██║██████╔╝█████╗  ██████╔╝    ██║     ███████║██║ █╗ ██║ ╚████╔╝ █████╗  ██████╔╝
+        ╚════██║██║   ██║██╔═══╝ ██╔══╝  ██╔══██╗    ██║     ██╔══██║██║███╗██║  ╚██╔╝  ██╔══╝  ██╔══██╗
+        ███████║╚██████╔╝██║     ███████╗██║  ██║    ███████╗██║  ██║╚███╔███╔╝   ██║   ███████╗██║  ██║
+        ╚══════╝ ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═╝    ╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝    ╚═╝   ╚══════╝╚═╝  ╚═╝
 
-  ═══════════════════════════════════════════════════════════════════════════════════════════════════════
-  ║                              AI LEGAL OPERATING SYSTEM v2.0                                         ║
-  ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+    ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+    ║                              AI LEGAL OPERATING SYSTEM v2.0                                         ║
+    ═══════════════════════════════════════════════════════════════════════════════════════════════════════
 ```
-
-## 🔒 PRIVATE & CONFIDENTIAL
-
-> **WARNING:** This is a PRIVATE application. Unauthorized access, use, copying, or distribution is strictly prohibited.
 
 ---
 
-## Overview
+## What is Venezuela Super Lawyer?
 
-**Venezuela Super Lawyer** is an elite AI Legal Operating System with doctoral-level mastery of Venezuelan law. It transforms Claude into a specialized legal assistant capable of:
+**Venezuela Super Lawyer** is an AI-powered legal operating system specialized in Venezuelan law. It provides doctoral-level expertise across multiple legal domains, enabling comprehensive legal research, document drafting, constitutional analysis, and case management.
 
-- Constitutional analysis and compliance testing
-- Legal document drafting (demandas, amparos, contratos)
-- TSJ (Tribunal Supremo de Justicia) outcome prediction
-- Massive legal research across Venezuelan sources
-- Law & resolution generation with implementation roadmaps
-- Legislative voting requirement mapping and feasibility analysis
+### Key Capabilities
 
-## System Modules
+| Capability | Description |
+|------------|-------------|
+| **Constitutional Analysis** | Full CRBV analysis with OEA vs SAPI comparison |
+| **Legal Document Drafting** | Demandas, amparos, contratos, recursos |
+| **TSJ Outcome Prediction** | Probability analysis for Supreme Court cases |
+| **Massive Legal Research** | Search across laws, jurisprudence, and Gaceta Oficial |
+| **Law Generation Engine** | Draft complete legal instruments with implementation roadmaps |
+| **Legislative Feasibility** | Voting requirements and political viability mapping |
 
-| Module | Name | Description |
-|--------|------|-------------|
-| 1 | Claude Code Skill Mode | Core functions and case management |
-| 2 | Instant Brainstorm Engine | Auto-trigger legal issue identification |
-| 3 | Massive Query Expansion | Search query generation |
-| 4 | Massive Research Engine | Comprehensive legal research |
-| 5 | Constitution Diff Engine | OEA vs SAPI comparison |
-| 6 | Gaceta Oficial Auto-Updater | Norm currency verification |
-| 7 | Hydrocarbons Law Playbook | Oil, gas, energy expertise |
-| 8 | TSJ-Style Analysis Template | Constitutional analysis framework |
-| 9 | Contract Drafting Assistant | Venezuelan-compliant contracts |
-| 10 | Automated Case Output System | Standardized case folder structure |
-| 11 | TSJ / Gaceta Ingestion | Jurisprudence and gazette research |
-| 12 | Constitutionality Test Engine | Automated constitutional tests |
-| 13 | TSJ Decision-Prediction | Outcome probability analysis |
-| 14 | Massive Case Analysis | Complete case analysis pipeline |
-| 15 | Automatic Report Generation | Markdown report system |
-| 16 | Law & Resolution Generation | Legislative drafting engine |
-| 17 | Voting Map Engine | Legislative feasibility analysis |
+---
+
+## System Architecture
+
+### 17 Specialized Modules
+
+| # | Module | Function |
+|---|--------|----------|
+| 1 | **Claude Code Skill Mode** | Core functions and deterministic outputs |
+| 2 | **Instant Brainstorm Engine** | Auto-trigger legal issue identification (10-25 issues) |
+| 3 | **Massive Query Expansion** | Generate comprehensive search queries |
+| 4 | **Massive Research Engine** | Research across all Venezuelan legal sources |
+| 5 | **Constitution Diff Engine** | Compare OEA vs SAPI constitutional texts |
+| 6 | **Gaceta Oficial Auto-Updater** | Verify norm currency and amendments |
+| 7 | **Hydrocarbons Law Playbook** | Oil, gas, energy sector expertise |
+| 8 | **TSJ-Style Analysis Template** | Constitutional analysis framework |
+| 9 | **Contract Drafting Assistant** | Venezuelan-compliant contract generation |
+| 10 | **Automated Case Output System** | Standardized case folder structure |
+| 11 | **TSJ / Gaceta Ingestion** | Jurisprudence and gazette database |
+| 12 | **Constitutionality Test Engine** | Automated constitutional compliance tests |
+| 13 | **TSJ Decision-Prediction** | Outcome probability with reasoning |
+| 14 | **Massive Case Analysis** | End-to-end case analysis pipeline |
+| 15 | **Automatic Report Generation** | Markdown reports with timestamps |
+| 16 | **Law & Resolution Generation** | Legislative drafting with roadmaps |
+| 17 | **Voting Map Engine** | Legislative feasibility and quorum analysis |
+
+---
+
+## Legal Sources
+
+### Primary Constitutional Sources
+- **CRBV (OEA)**: https://www.oas.org/dil/esp/constitucion_venezuela.pdf
+- **CRBV (SAPI)**: https://sapi.gob.ve/wp-content/uploads/2020/11/CONSTITUCION.pdf
+
+### Subordinate Sources
+- Gaceta Oficial (Ordinaria y Extraordinaria)
+- TSJ Jurisprudence (all 7 chambers)
+- Código Civil, Código de Comercio, Código de Procedimiento Civil
+- Ley Orgánica de Amparo, LOPA, Ley de Hidrocarburos
+- Sector-specific regulations and resolutions
+
+---
+
+## Installation
+
+### Prerequisites
+- Python 3.8+
+- Claude Code CLI
+- Git
+
+### Quick Setup
+
+```bash
+# 1. Clone repository
+git clone https://github.com/rikitrader/venezuela-super-lawyer.git
+cd venezuela-super-lawyer
+
+# 2. Set password (REQUIRED)
+export VSL_ACCESS_KEY="<your_password>"
+
+# 3. Verify access
+python3 scripts/security.py verify
+
+# 4. Run
+python3 scripts/report_manager.py list
+```
+
+---
+
+## Security
+
+### Password Protection
+
+All core scripts require authentication via `VSL_ACCESS_KEY` environment variable.
+
+```
+╔═══════════════════════════════════════════════════════════════╗
+║                    🔒 PASSWORD PROTECTED 🔒                   ║
+╠═══════════════════════════════════════════════════════════════╣
+║  • Scripts require VSL_ACCESS_KEY to execute                  ║
+║  • Invalid attempts are logged to audit file                  ║
+║  • Password verified via SHA-256 hash (not stored plaintext)  ║
+╚═══════════════════════════════════════════════════════════════╝
+```
+
+### Protected Files
+- `SKILL.md` - Core skill definition
+- `scripts/*.py` - All Python scripts
+- `reportes_legales/*.md` - Generated reports
+- `cases/**/*` - Case files
+
+---
 
 ## Directory Structure
 
 ```
 venezuela-super-lawyer/
-├── SKILL.md                    # Core skill definition (PROTECTED)
+├── SKILL.md                    # Core skill definition
 ├── README.md                   # This file
-├── LICENSE                     # Private license
+├── LICENSE                     # Proprietary license
 ├── .env.example                # Environment template
 ├── scripts/
-│   ├── report_manager.py       # Report generation (PROTECTED)
+│   ├── security.py             # Authentication module
+│   ├── report_manager.py       # Report generation
 │   ├── init_case.py            # Case initialization
 │   ├── constitutional_test.py  # Constitutionality tests
 │   ├── gaceta_verify.py        # Gaceta verification
-│   └── tsj_search.py           # TSJ search
+│   └── tsj_search.py           # TSJ jurisprudence search
 ├── references/
 │   ├── crbv_articles.md        # Constitutional articles
-│   ├── legislative_avenues.md  # Legislative process guide
-│   ├── tsj_salas.md            # TSJ chambers guide
+│   ├── legislative_avenues.md  # 9 legislative avenues guide
+│   ├── tsj_salas.md            # TSJ chambers reference
 │   └── hydrocarbons_framework.md
 ├── assets/
-│   ├── escudo_ascii.txt        # Venezuela coat of arms
 │   └── templates/
 │       ├── instrumento_legal.md
 │       ├── demanda_civil.md
 │       └── amparo_constitucional.md
-└── reportes_legales/           # Generated reports
+├── reportes_legales/           # Generated reports
+├── cases/                      # Case files
+└── logs/                       # Audit logs
 ```
-
-## Installation & Setup
-
-### Prerequisites
-
-- Python 3.8+
-- Claude Code CLI
-- Git
-
-### Setup Instructions
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/rikitrader/venezuela-super-lawyer.git
-   cd venezuela-super-lawyer
-   ```
-
-2. **Configure environment**:
-   ```bash
-   cp .env.example .env
-   # Edit .env with your credentials
-   ```
-
-3. **Set access password** (REQUIRED for all protected operations):
-   ```bash
-   export VSL_ACCESS_KEY="<your_password>"
-   ```
-
-4. **Verify authentication**:
-   ```bash
-   python3 scripts/security.py verify
-   ```
-
-5. **Run protected scripts**:
-   ```bash
-   # All core scripts require VSL_ACCESS_KEY to be set
-   python3 scripts/report_manager.py list
-   ```
-
-### Password Protection
-
-All core functionality is protected by password authentication:
-
-```
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                         🔒 PASSWORD PROTECTED 🔒                             ║
-╠══════════════════════════════════════════════════════════════════════════════╣
-║                                                                              ║
-║  All scripts require authentication via VSL_ACCESS_KEY environment variable  ║
-║                                                                              ║
-║  Without valid credentials:                                                  ║
-║  • Scripts will not execute                                                  ║
-║  • Access attempts are logged                                                ║
-║  • System displays ACCESS DENIED                                             ║
-║                                                                              ║
-╚══════════════════════════════════════════════════════════════════════════════╝
-```
-
-## Usage
-
-### Quick Start
-
-```bash
-# Create a new legal report
-python3 scripts/report_manager.py new "Análisis Constitucional" --case "2026-001"
-
-# List all reports
-python3 scripts/report_manager.py list
-
-# Get latest report
-python3 scripts/report_manager.py latest
-```
-
-### With Claude Code
-
-Invoke the skill using:
-```
-/venezuela-super-lawyer
-```
-or
-```
-/ven
-```
-
-## Security
-
-### Access Control
-
-- **Password Protection**: Core files require `VSL_ACCESS_KEY` environment variable
-- **File Permissions**: Sensitive scripts have restricted permissions
-- **Audit Logging**: All access attempts are logged
-
-### Protected Files
-
-The following files are protected and require authentication:
-
-- `SKILL.md` - Core skill definition
-- `scripts/report_manager.py` - Report generation engine
-- `scripts/constitutional_test.py` - Constitutional analysis engine
-- All files in `reportes_legales/` - Generated legal reports
 
 ---
 
-## ⚠️ DISCLAIMERS
+## Usage with Claude Code
 
-### Private Application Notice
+```bash
+# Invoke the skill
+/venezuela-super-lawyer
 
-```
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                           PRIVATE APPLICATION                                 ║
-╠══════════════════════════════════════════════════════════════════════════════╣
-║                                                                              ║
-║  This software is PRIVATE and CONFIDENTIAL.                                  ║
-║                                                                              ║
-║  • NOT for public distribution                                               ║
-║  • NOT open source                                                           ║
-║  • Authorized users ONLY                                                     ║
-║  • All rights reserved                                                       ║
-║                                                                              ║
-║  Unauthorized access, copying, modification, or distribution of this         ║
-║  software is strictly prohibited and may result in legal action.             ║
-║                                                                              ║
-╚══════════════════════════════════════════════════════════════════════════════╝
+# Or use shorthand
+/ven
 ```
 
-### Future Development Notice
+---
+
+## Disclaimers
+
+### Development Status
 
 ```
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                         DEVELOPMENT STATUS: ALPHA                            ║
-╠══════════════════════════════════════════════════════════════════════════════╣
-║                                                                              ║
-║  This application is designed for FUTURE DEVELOPMENT and is currently        ║
-║  in an experimental/alpha stage.                                             ║
-║                                                                              ║
-║  • Features may change without notice                                        ║
-║  • APIs are not stable                                                       ║
-║  • Not recommended for production use                                        ║
-║  • Use at your own risk                                                      ║
-║                                                                              ║
-║  Version: 2.0.0-alpha                                                        ║
-║  Last Updated: 2026-02-03                                                    ║
-║                                                                              ║
-╚══════════════════════════════════════════════════════════════════════════════╝
+╔═══════════════════════════════════════════════════════════════╗
+║                    ALPHA / FUTURE DEVELOPMENT                 ║
+╠═══════════════════════════════════════════════════════════════╣
+║  • Features may change without notice                         ║
+║  • Not recommended for production use                         ║
+║  • Designed for future development                            ║
+║  Version: 2.0.0-alpha | Updated: 2026-02-03                   ║
+╚═══════════════════════════════════════════════════════════════╝
 ```
 
 ### Legal Disclaimer
 
-```
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                            LEGAL DISCLAIMER                                  ║
-╠══════════════════════════════════════════════════════════════════════════════╣
-║                                                                              ║
-║  THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND.             ║
-║                                                                              ║
-║  The information generated by this system:                                   ║
-║                                                                              ║
-║  1. Does NOT constitute formal legal advice                                  ║
-║  2. Should be verified by a licensed Venezuelan attorney                     ║
-║  3. Is based on publicly available legal sources                             ║
-║  4. May not reflect the most recent legal changes                            ║
-║                                                                              ║
-║  Always consult with a qualified legal professional before making            ║
-║  legal decisions based on information from this system.                      ║
-║                                                                              ║
-║  The authors and contributors are NOT liable for any damages arising         ║
-║  from the use of this software.                                              ║
-║                                                                              ║
-╚══════════════════════════════════════════════════════════════════════════════╝
-```
+**THIS SOFTWARE DOES NOT CONSTITUTE LEGAL ADVICE.**
 
-### Confidentiality Notice
-
-All reports generated by this system are **CONFIDENTIAL** and intended solely for the designated recipient. If you have received access to this system or its outputs in error, please notify the administrator immediately and delete all copies.
+- Information should be verified by a licensed Venezuelan attorney
+- Based on publicly available legal sources
+- May not reflect the most recent legal changes
+- Authors are NOT liable for damages arising from use
 
 ---
 
-## Author & Copyright
+## Copyright
 
 ```
 ═══════════════════════════════════════════════════════════════════════════════
-                    VENEZUELA SUPER LAWYER
-                AI Legal Operating System v2.0
+                         VENEZUELA SUPER LAWYER
+                      AI Legal Operating System v2.0
 ═══════════════════════════════════════════════════════════════════════════════
 
-                    © 2026 All Rights Reserved
+                         © 2026 All Rights Reserved
 
-        "Supremacía Constitucional • Precisión Jurídica • Soluciones Reales"
+            "Supremacía Constitucional • Precisión Jurídica • Soluciones Reales"
 
 ═══════════════════════════════════════════════════════════════════════════════
 ```
-
-## Contact
-
-For authorized access requests or inquiries, contact the system administrator.
 
 ---
 
-**Last Updated:** 2026-02-03
 **Version:** 2.0.0-alpha
-**Status:** Private Development
+**Last Updated:** 2026-02-03
+**Status:** Password Protected | Public Repository
