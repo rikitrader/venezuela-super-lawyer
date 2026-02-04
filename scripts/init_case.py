@@ -2,15 +2,78 @@
 """
 Venezuela Super Lawyer - Case Initialization Script
 Initializes the standardized case folder structure for legal case management.
+
+Version: 1.0.0
 """
+
+__version__ = "1.0.0"
+__author__ = "Venezuela Super Lawyer"
 
 import os
 import sys
 import json
+import argparse
 from datetime import datetime
 from pathlib import Path
 
-def create_case_structure(case_number: str, client_name: str, base_path: str = None):
+# Directory configuration
+CASES_DIR = Path(__file__).parent.parent / "cases"
+CASE_SUBDIRS = ["DRAFTS", "documentos", "evidencia", "investigacion", "reportes"]
+
+
+def generate_case_header(case_name: str) -> str:
+    """Generate a header for case documentation."""
+    now = datetime.now()
+    return f"""# CASO: {case_name}
+
+═══════════════════════════════════════════════════════════════════════════════
+                    VENEZUELA SUPER LAWYER - CASO LEGAL
+═══════════════════════════════════════════════════════════════════════════════
+
+**Caso:** {case_name}
+**Creado:** {now.strftime("%Y-%m-%d %H:%M:%S")}
+**Sistema:** Venezuela Super Lawyer v2.0
+
+═══════════════════════════════════════════════════════════════════════════════
+"""
+
+
+def get_case_template(case_name: str) -> str:
+    """Get the case template content."""
+    header = generate_case_header(case_name)
+    return header + """
+## Resumen Ejecutivo
+
+*Pendiente de análisis*
+
+## Hechos del Caso
+
+*Pendiente de verificación*
+
+## Marco Legal Aplicable
+
+*Pendiente de investigación*
+
+## Análisis Constitucional
+
+*Pendiente de evaluación*
+
+## Estrategia Legal
+
+*Pendiente de desarrollo*
+
+## Próximos Pasos
+
+- [ ] Completar intake del caso
+- [ ] Recopilar documentos
+- [ ] Análisis constitucional
+- [ ] Investigación jurisprudencial
+- [ ] Desarrollo de estrategia
+
+"""
+
+
+def create_case_structure(case_number: str, client_name: str = None, base_path: str = None):
     """Create the standardized case folder structure."""
 
     if base_path is None:
@@ -143,19 +206,41 @@ See [UPDATES.log](./UPDATES.log) for detailed change history.
     return str(case_dir)
 
 
+def create_parser() -> argparse.ArgumentParser:
+    """Create argument parser for CLI."""
+    parser = argparse.ArgumentParser(
+        prog="init_case.py",
+        description="Venezuela Super Lawyer - Case Initialization",
+        epilog="Creates standardized legal case folder structure"
+    )
+    parser.add_argument(
+        "case_number",
+        help="Case number/identifier (e.g., 2024-001)"
+    )
+    parser.add_argument(
+        "client_name",
+        nargs="?",
+        default="CONFIDENCIAL",
+        help="Client name (default: CONFIDENCIAL)"
+    )
+    parser.add_argument(
+        "--path", "-p",
+        dest="base_path",
+        help="Base path for cases directory"
+    )
+    parser.add_argument(
+        "--version", "-v",
+        action="version",
+        version=f"%(prog)s {__version__}"
+    )
+    return parser
+
+
 def main():
-    if len(sys.argv) < 3:
-        print("Usage: python3 init_case.py <case_number> <client_name> [base_path]")
-        print("\nExample:")
-        print("  python3 init_case.py 2024-001 'Empresa ABC C.A.'")
-        print("  python3 init_case.py 2024-002 'Juan Pérez' /path/to/cases")
-        sys.exit(1)
+    parser = create_parser()
+    args = parser.parse_args()
 
-    case_number = sys.argv[1]
-    client_name = sys.argv[2]
-    base_path = sys.argv[3] if len(sys.argv) > 3 else None
-
-    create_case_structure(case_number, client_name, base_path)
+    create_case_structure(args.case_number, args.client_name, args.base_path)
 
 
 if __name__ == "__main__":

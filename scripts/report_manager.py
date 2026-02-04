@@ -4,7 +4,12 @@ Venezuela Super Lawyer - Report Manager
 Manages automatic generation and updating of legal research reports in Markdown format.
 
 PROTECTED FILE - Requires authentication via VSL_ACCESS_KEY environment variable.
+
+Version: 1.0.0
 """
+
+__version__ = "1.0.0"
+__author__ = "Venezuela Super Lawyer"
 
 import os
 import sys
@@ -24,6 +29,448 @@ except ImportError:
 
 # Default reports directory
 DEFAULT_REPORTS_DIR = "reportes_legales"
+REPORTS_DIR = Path(__file__).parent.parent / DEFAULT_REPORTS_DIR
+
+# Report templates
+REPORT_TEMPLATES = {
+    "analysis": "Análisis Legal Completo",
+    "constitutional": "Análisis Constitucional",
+    "opinion": "Opinión Legal",
+    "research": "Investigación Jurídica",
+    "strategy": "Estrategia Legal"
+}
+
+
+def generate_report_header(title: str, case_name: str) -> str:
+    """Generate a simple report header."""
+    now = datetime.now()
+    return f"""# {title}
+
+═══════════════════════════════════════════════════════════════════════════════
+                    VENEZUELA SUPER LAWYER - REPORTE
+═══════════════════════════════════════════════════════════════════════════════
+
+**Caso:** {case_name}
+**Fecha:** {now.strftime("%Y-%m-%d %H:%M:%S")}
+**Sistema:** Venezuela Super Lawyer v2.0
+
+═══════════════════════════════════════════════════════════════════════════════
+
+"""
+
+
+def format_section(title: str, content: str) -> str:
+    """Format a section with title and content."""
+    return f"""
+## {title}
+
+{content}
+
+---
+"""
+
+
+class ReportManager:
+    """Manager class for legal report generation."""
+
+    def __init__(self, reports_dir: Path = None):
+        """Initialize report manager."""
+        self.reports_dir = reports_dir or REPORTS_DIR
+        self.reports_dir.mkdir(parents=True, exist_ok=True)
+
+    def _generate_risk_indicator(self, score: float) -> str:
+        """Generate visual risk indicator."""
+        if score >= 75:
+            return "🔴 ALTO"
+        elif score >= 50:
+            return "🟠 MEDIO-ALTO"
+        elif score >= 25:
+            return "🟡 MEDIO"
+        else:
+            return "🟢 BAJO"
+
+    def _generate_enriched_executive_summary(
+        self,
+        case_name: str,
+        workflow_type: str = None,
+        constitutional_analysis: dict = None,
+        constitutional_tests: dict = None,
+        gaceta_results: dict = None,
+        tsj_results: dict = None,
+        voting_map: dict = None,
+        hydrocarbons_analysis: dict = None,
+        contract_review: dict = None,
+        law_generation: dict = None
+    ) -> str:
+        """Generate a comprehensive executive summary with actionable insights."""
+        summary = "## Resumen Ejecutivo\n\n"
+
+        # Overall Assessment Box
+        risk_score = 0
+        if constitutional_analysis:
+            risk_score = constitutional_analysis.get('risk_score', 0)
+
+        summary += "### Evaluación General\n\n"
+        summary += "```\n"
+        summary += f"┌{'─'*60}┐\n"
+        summary += f"│ {'CASO:':<15} {case_name:<43} │\n"
+        summary += f"│ {'WORKFLOW:':<15} {(workflow_type or 'CASE_ANALYSIS'):<43} │\n"
+        summary += f"│ {'RIESGO:':<15} {self._generate_risk_indicator(risk_score):<43} │\n"
+        summary += f"└{'─'*60}┘\n"
+        summary += "```\n\n"
+
+        # Key Findings
+        summary += "### Hallazgos Clave\n\n"
+        findings = []
+
+        if constitutional_analysis:
+            conflicts = constitutional_analysis.get('conflicts_found', 0)
+            compliance = constitutional_analysis.get('compliance_percentage', 100)
+            if conflicts > 0:
+                findings.append(f"⚠️ **{conflicts} conflicto(s) constitucional(es)** detectado(s) que requieren atención")
+            if compliance < 80:
+                findings.append(f"📊 Nivel de cumplimiento constitucional: **{compliance}%**")
+            else:
+                findings.append(f"✅ Alto nivel de cumplimiento constitucional: **{compliance}%**")
+
+        if constitutional_tests:
+            passed = constitutional_tests.get('tests_passed', 0)
+            total = constitutional_tests.get('total_tests', 0)
+            if total > 0:
+                rate = (passed / total) * 100
+                if rate >= 80:
+                    findings.append(f"✅ Pruebas constitucionales aprobadas: **{passed}/{total}** ({rate:.0f}%)")
+                else:
+                    findings.append(f"⚠️ Pruebas constitucionales aprobadas: **{passed}/{total}** ({rate:.0f}%) - Requiere revisión")
+
+        if gaceta_results:
+            norms = gaceta_results.get('norms_found', 0)
+            if norms > 0:
+                findings.append(f"📚 **{norms} norma(s)** relevante(s) identificada(s) en Gaceta Oficial")
+
+        if tsj_results:
+            cases = tsj_results.get('cases_found', 0)
+            binding = tsj_results.get('binding_precedents', 0)
+            if cases > 0:
+                findings.append(f"⚖️ **{cases} sentencia(s)** del TSJ encontrada(s) ({binding} vinculante(s))")
+
+        if voting_map:
+            votes = voting_map.get('votes_needed', 0)
+            feasibility = voting_map.get('feasibility', 'N/A')
+            findings.append(f"🗳️ Requisito de votación: **{votes} votos** - Factibilidad: **{feasibility}**")
+
+        if hydrocarbons_analysis:
+            activity = hydrocarbons_analysis.get('activity_type', 'N/A')
+            reserved = hydrocarbons_analysis.get('reserved_to_state', False)
+            findings.append(f"🛢️ Actividad hidrocarburos: **{activity}** {'(Reservada al Estado)' if reserved else ''}")
+
+        if contract_review:
+            overall_risk = contract_review.get('overall_risk', 'N/A')
+            compliance_score = contract_review.get('compliance_score', 0)
+            findings.append(f"📋 Revisión contractual: Riesgo **{overall_risk}** - Cumplimiento **{compliance_score}%**")
+
+        if law_generation:
+            article_count = law_generation.get('article_count', 0)
+            inst_type = law_generation.get('instrument_type', 'N/A')
+            findings.append(f"📜 Instrumento legal generado: **{inst_type}** con **{article_count} artículos**")
+
+        if not findings:
+            findings.append("ℹ️ Análisis en proceso - No se han detectado hallazgos críticos")
+
+        for finding in findings:
+            summary += f"- {finding}\n"
+
+        summary += "\n"
+
+        # Recommendations Box
+        summary += "### Recomendaciones Prioritarias\n\n"
+        recommendations = []
+
+        if constitutional_analysis and constitutional_analysis.get('conflicts_found', 0) > 0:
+            recommendations.append("1. **Revisar conflictos constitucionales** antes de proceder")
+            conflicts = constitutional_analysis.get('conflicts', [])
+            if conflicts:
+                for c in conflicts[:3]:
+                    art = c.get('article', 'N/A')
+                    recommendations.append(f"   - Artículo {art} CRBV: {c.get('recommendation', 'Revisar')[:80]}")
+
+        if voting_map:
+            feasibility = voting_map.get('feasibility', '').lower()
+            if feasibility == 'baja':
+                recommendations.append("2. **Considerar estrategia política** - Factibilidad legislativa baja")
+            elif feasibility == 'media':
+                recommendations.append("2. **Desarrollar alianzas políticas** para mejorar factibilidad")
+
+        if hydrocarbons_analysis and hydrocarbons_analysis.get('reserved_to_state'):
+            recommendations.append("3. **Verificar cumplimiento de Art. 9 LOH** - Participación estatal requerida")
+
+        if not recommendations:
+            recommendations.append("1. **Continuar con el proceso** - No se identifican obstáculos críticos")
+            recommendations.append("2. **Monitorear cambios normativos** que puedan afectar el caso")
+
+        for rec in recommendations:
+            summary += f"{rec}\n"
+
+        summary += "\n---\n\n"
+        return summary
+
+    def generate_analysis_report(
+        self,
+        case_name: str,
+        workflow_type: str = None,
+        constitutional_analysis: dict = None,
+        constitutional_tests: dict = None,
+        gaceta_results: dict = None,
+        tsj_results: dict = None,
+        voting_map: dict = None,
+        hydrocarbons_analysis: dict = None,
+        contract_review: dict = None,
+        law_generation: dict = None,
+        brainstorm: dict = None,
+        intake_data: dict = None
+    ) -> str:
+        """Generate a comprehensive analysis report with enriched content."""
+        now = datetime.now()
+
+        content = generate_report_header("Análisis Legal Integral", case_name)
+
+        # Enriched Executive Summary
+        content += self._generate_enriched_executive_summary(
+            case_name=case_name,
+            workflow_type=workflow_type,
+            constitutional_analysis=constitutional_analysis,
+            constitutional_tests=constitutional_tests,
+            gaceta_results=gaceta_results,
+            tsj_results=tsj_results,
+            voting_map=voting_map,
+            hydrocarbons_analysis=hydrocarbons_analysis,
+            contract_review=contract_review,
+            law_generation=law_generation
+        )
+
+        # Intake Summary (if available)
+        if intake_data:
+            content += "## Datos del Caso\n\n"
+            content += "| Campo | Valor |\n"
+            content += "|-------|-------|\n"
+            if intake_data.get('client_name'):
+                content += f"| Cliente | {intake_data.get('client_name')} |\n"
+            if intake_data.get('problem_statement'):
+                content += f"| Problema | {intake_data.get('problem_statement')[:100]}... |\n"
+            if intake_data.get('sector'):
+                content += f"| Sector | {intake_data.get('sector')} |\n"
+            if intake_data.get('norm_type'):
+                content += f"| Tipo de Norma | {intake_data.get('norm_type')} |\n"
+            content += "\n---\n\n"
+
+        # Brainstorm Results (if available)
+        if brainstorm:
+            content += "## Análisis Preliminar (Brainstorm)\n\n"
+            if brainstorm.get('legal_issues'):
+                content += "### Cuestiones Jurídicas Identificadas\n\n"
+                for issue in brainstorm.get('legal_issues', [])[:5]:
+                    content += f"- {issue}\n"
+                content += "\n"
+            if brainstorm.get('applicable_laws'):
+                content += "### Normativa Aplicable\n\n"
+                for law in brainstorm.get('applicable_laws', [])[:5]:
+                    content += f"- {law}\n"
+                content += "\n"
+            content += "---\n\n"
+
+        # Constitutional Analysis (Enhanced)
+        if constitutional_analysis:
+            content += "## Análisis Constitucional\n\n"
+            content += "### Métricas de Cumplimiento\n\n"
+            content += "| Indicador | Valor | Estado |\n"
+            content += "|-----------|-------|--------|\n"
+            risk = constitutional_analysis.get('risk_score', 0)
+            compliance = constitutional_analysis.get('compliance_percentage', 100)
+            conflicts = constitutional_analysis.get('conflicts_found', 0)
+            content += f"| Riesgo Constitucional | {risk}% | {self._generate_risk_indicator(risk)} |\n"
+            content += f"| Cumplimiento | {compliance}% | {'✅' if compliance >= 80 else '⚠️'} |\n"
+            content += f"| Conflictos Detectados | {conflicts} | {'✅' if conflicts == 0 else '⚠️'} |\n"
+            content += "\n"
+
+            if constitutional_analysis.get('conflicts'):
+                content += "### Conflictos Identificados\n\n"
+                for i, c in enumerate(constitutional_analysis.get('conflicts', [])[:5], 1):
+                    content += f"#### Conflicto {i}: Artículo {c.get('article')} CRBV\n\n"
+                    content += f"- **Tipo:** {c.get('conflict_type', 'N/A')}\n"
+                    content += f"- **Descripción:** {c.get('description', 'N/A')}\n"
+                    content += f"- **Severidad:** {c.get('severity', 'N/A')}\n"
+                    content += f"- **Recomendación:** {c.get('recommendation', 'N/A')}\n\n"
+
+            if constitutional_analysis.get('eternity_clause_violations'):
+                content += "### ⚠️ Violaciones de Cláusulas Pétreas\n\n"
+                for violation in constitutional_analysis.get('eternity_clause_violations', []):
+                    content += f"- **CRÍTICO:** {violation}\n"
+                content += "\n"
+
+            content += "---\n\n"
+
+        # Constitutional Tests (Enhanced)
+        if constitutional_tests:
+            content += "## Pruebas Constitucionales\n\n"
+            passed = constitutional_tests.get('tests_passed', 0)
+            total = constitutional_tests.get('total_tests', 0)
+            score = constitutional_tests.get('overall_score', 0)
+
+            content += f"**Resultado General:** {passed}/{total} pruebas aprobadas ({score:.1f}%)\n\n"
+            content += "### Detalle de Pruebas\n\n"
+            content += "| Prueba | Resultado | Puntuación |\n"
+            content += "|--------|-----------|------------|\n"
+
+            for test in constitutional_tests.get('tests', [])[:10]:
+                status = "✅" if test.get('passed') else "❌"
+                content += f"| {test.get('test_name', 'N/A')} | {status} | {test.get('score', 0):.0f}% |\n"
+
+            content += "\n---\n\n"
+
+        # Gaceta Results (Enhanced)
+        if gaceta_results:
+            content += "## Verificación Gaceta Oficial\n\n"
+            norms = gaceta_results.get('norms_found', 0)
+            content += f"**Normas Encontradas:** {norms}\n\n"
+
+            if gaceta_results.get('norms'):
+                content += "### Normas Relevantes\n\n"
+                content += "| Gaceta | Fecha | Tipo | Título |\n"
+                content += "|--------|-------|------|--------|\n"
+                for norm in gaceta_results.get('norms', [])[:10]:
+                    content += f"| {norm.get('gaceta_numero', 'N/A')} | {norm.get('fecha', 'N/A')} | {norm.get('tipo', 'N/A')} | {norm.get('titulo', 'N/A')[:40]}... |\n"
+                content += "\n"
+
+            content += "---\n\n"
+
+        # TSJ Research (Enhanced)
+        if tsj_results:
+            content += "## Jurisprudencia TSJ\n\n"
+            cases = tsj_results.get('cases_found', 0)
+            binding = tsj_results.get('binding_precedents', 0)
+            content += f"**Casos Encontrados:** {cases} ({binding} vinculantes)\n\n"
+
+            if tsj_results.get('decisions'):
+                content += "### Sentencias Relevantes\n\n"
+                for decision in tsj_results.get('decisions', [])[:5]:
+                    content += f"#### {decision.get('expediente', 'N/A')} - {decision.get('sala', 'N/A')}\n\n"
+                    content += f"- **Fecha:** {decision.get('fecha', 'N/A')}\n"
+                    content += f"- **Magistrado Ponente:** {decision.get('magistrado_ponente', 'N/A')}\n"
+                    content += f"- **Materia:** {decision.get('materia', 'N/A')}\n"
+                    content += f"- **Vinculante:** {'Sí' if decision.get('vinculante') else 'No'}\n"
+                    if decision.get('resumen'):
+                        content += f"- **Resumen:** {decision.get('resumen')[:200]}...\n"
+                    content += "\n"
+
+            content += "---\n\n"
+
+        # Hydrocarbons Analysis (New)
+        if hydrocarbons_analysis:
+            content += "## Análisis de Hidrocarburos (LOH)\n\n"
+            content += "### Clasificación de Actividad\n\n"
+            content += "| Aspecto | Valor |\n"
+            content += "|---------|-------|\n"
+            content += f"| Tipo de Actividad | {hydrocarbons_analysis.get('activity_type', 'N/A')} |\n"
+            content += f"| Reservada al Estado | {'Sí' if hydrocarbons_analysis.get('reserved_to_state') else 'No'} |\n"
+            content += f"| Requiere Empresa Mixta | {'Sí' if hydrocarbons_analysis.get('empresa_mixta_required') else 'No'} |\n"
+            content += f"| Participación Privada Permitida | {'Sí' if hydrocarbons_analysis.get('private_participation_allowed') else 'No'} |\n"
+            content += "\n"
+
+            if hydrocarbons_analysis.get('fiscal_obligations'):
+                content += "### Obligaciones Fiscales\n\n"
+                content += "| Obligación | Tasa | Base | Artículo LOH |\n"
+                content += "|------------|------|------|-------------|\n"
+                for obligation in hydrocarbons_analysis.get('fiscal_obligations', []):
+                    content += f"| {obligation.get('name', 'N/A')} | {obligation.get('rate', 'N/A')} | {obligation.get('base', 'N/A')} | Art. {obligation.get('loh_article', 'N/A')} |\n"
+                content += "\n"
+
+            if hydrocarbons_analysis.get('empresa_mixta'):
+                em = hydrocarbons_analysis.get('empresa_mixta')
+                content += "### Análisis de Empresa Mixta\n\n"
+                content += f"- **Participación PDVSA:** {em.get('pdvsa_participation', 0)}%\n"
+                content += f"- **Participación Privada:** {em.get('private_participation', 0)}%\n"
+                content += f"- **Cumplimiento Art. 9 LOH:** {'✅ Sí' if em.get('art_9_loh_compliant') else '❌ No'}\n"
+                content += "\n"
+
+            content += "---\n\n"
+
+        # Contract Review (New)
+        if contract_review:
+            content += "## Revisión Contractual\n\n"
+            content += f"**Tipo de Contrato:** {contract_review.get('contract_type', 'N/A')}\n"
+            content += f"**Riesgo General:** {contract_review.get('overall_risk', 'N/A')}\n"
+            content += f"**Puntuación de Cumplimiento:** {contract_review.get('compliance_score', 0)}%\n\n"
+
+            if contract_review.get('risk_patterns'):
+                content += "### Patrones de Riesgo Identificados\n\n"
+                for pattern in contract_review.get('risk_patterns', [])[:5]:
+                    content += f"- **{pattern.get('pattern_name', 'N/A')}** ({pattern.get('risk_level', 'N/A')}): {pattern.get('description', 'N/A')}\n"
+                content += "\n"
+
+            if contract_review.get('missing_clauses'):
+                content += "### Cláusulas Faltantes\n\n"
+                for clause in contract_review.get('missing_clauses', []):
+                    content += f"- ⚠️ {clause}\n"
+                content += "\n"
+
+            content += "---\n\n"
+
+        # Law Generation (New)
+        if law_generation:
+            content += "## Instrumento Legal Generado\n\n"
+            content += f"**Tipo:** {law_generation.get('instrument_type', 'N/A')}\n"
+            content += f"**Título:** {law_generation.get('title', 'N/A')}\n"
+            content += f"**Artículos:** {law_generation.get('article_count', 0)}\n\n"
+
+            if law_generation.get('roadmap'):
+                roadmap = law_generation.get('roadmap')
+                content += "### Hoja de Ruta de Implementación\n\n"
+                content += f"**Duración Total:** {roadmap.get('total_days', 0)} días\n\n"
+                content += "| Fase | Nombre | Duración |\n"
+                content += "|------|--------|----------|\n"
+                for phase in roadmap.get('phases', [])[:6]:
+                    content += f"| {phase.get('phase_number', 'N/A')} | {phase.get('name', 'N/A')} | {phase.get('duration_days', 0)} días |\n"
+                content += "\n"
+
+            content += "---\n\n"
+
+        # Voting Map (Enhanced)
+        if voting_map:
+            content += "## Mapa de Votación Legislativa\n\n"
+            content += "### Requisitos de Aprobación\n\n"
+            content += "| Aspecto | Valor |\n"
+            content += "|---------|-------|\n"
+            content += f"| Votos Necesarios | {voting_map.get('votes_needed', 'N/A')} |\n"
+            content += f"| Total Diputados | {voting_map.get('total_deputies', 277)} |\n"
+            content += f"| Tipo de Mayoría | {voting_map.get('majority_type', 'N/A')} |\n"
+            content += f"| Factibilidad | {voting_map.get('feasibility', 'N/A')} |\n"
+            content += "\n"
+
+            if voting_map.get('procedural_steps'):
+                content += "### Pasos Procedimentales\n\n"
+                for i, step in enumerate(voting_map.get('procedural_steps', []), 1):
+                    content += f"{i}. {step}\n"
+                content += "\n"
+
+            content += "---\n\n"
+
+        # Footer
+        content += f"""
+═══════════════════════════════════════════════════════════════════════════════
+                    VENEZUELA SUPER LAWYER v2.0
+                    Generado: {now.strftime('%Y-%m-%d %H:%M:%S')}
+                    Workflow: {workflow_type or 'CASE_ANALYSIS'}
+═══════════════════════════════════════════════════════════════════════════════
+"""
+        return content
+
+    def save_report(self, case_name: str, content: str) -> str:
+        """Save report to file and return path."""
+        date_str = datetime.now().strftime("%Y%m%d")
+        filename = f"{date_str}_{sanitize_filename(case_name)}.md"
+        report_path = self.reports_dir / filename
+        report_path.write_text(content, encoding='utf-8')
+        return str(report_path)
 
 
 def sanitize_filename(name: str) -> str:

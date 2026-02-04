@@ -2,7 +2,12 @@
 """
 Venezuela Super Lawyer - Constitutional Test Engine
 Runs automated constitutionality tests on legal instruments.
+
+Version: 1.0.0
 """
+
+__version__ = "1.0.0"
+__author__ = "Venezuela Super Lawyer"
 
 import json
 import sys

@@ -24,6 +24,100 @@ Operating simultaneously as:
 - Never contradict the Constitution
 - Always prioritize supremacía constitucional
 
+## MANDATORY: INTAKE COMMAND - Master Entry Point
+
+**ALL legal work MUST start with the INTAKE command to route to the appropriate workflow.**
+
+### Intake Command - Routes to All 7 Workflows
+
+```bash
+# Master intake command - use this to start any legal work
+python3 scripts/run_case_analysis.py intake <WORKFLOW> <CASE_NAME> [OPTIONS]
+```
+
+### Available Workflows (7 total):
+
+| Workflow | Description | Key Modules |
+|----------|-------------|-------------|
+| `CASE_ANALYSIS` | Full legal case analysis | 1,2,3,4,5,6,10,12,13,14,15 |
+| `LAW_CREATION` | Create law + voting map + roadmap | 2,3,4,5,6,12,15,16,17 |
+| `RESEARCH` | Comprehensive legal research | 2,3,4,5,6,11,15 |
+| `TSJ_PREDICTION` | Predict TSJ outcome | 2,4,5,8,12,13,15 |
+| `CONTRACT_REVIEW` | Contract compliance review | 2,5,6,9,12,15 |
+| `CONSTITUTIONAL_TEST` | Test constitutional compliance | 2,5,8,12,15 |
+| `VOTING_MAP` | Legislative voting analysis only | 15,17 |
+
+### Intake Examples by Workflow:
+
+```bash
+# 1. CASE_ANALYSIS - Full case analysis
+python3 scripts/run_case_analysis.py intake CASE_ANALYSIS "Caso_PDVSA_2026" \
+  --problem "Impugnación de resolución administrativa" \
+  --keywords "hidrocarburos" "resolución" \
+  --sector hydrocarbons \
+  --client "Cliente Confidencial"
+
+# 2. LAW_CREATION - Create new law with implementation roadmap
+python3 scripts/run_case_analysis.py intake LAW_CREATION "Ley_Criptomonedas" \
+  --problem "Regular el mercado de criptomonedas en Venezuela" \
+  --outcome "Protección de inversores y marco regulatorio claro" \
+  --norm-type LEY_ORDINARIA \
+  --sector banking \
+  --enforcement administrative
+
+# 3. RESEARCH - Legal research query
+python3 scripts/run_case_analysis.py intake RESEARCH "Investigacion_Amparo" \
+  --keywords "amparo constitucional" "debido proceso" "tutela judicial"
+
+# 4. TSJ_PREDICTION - Predict TSJ outcome
+python3 scripts/run_case_analysis.py intake TSJ_PREDICTION "Prediccion_Nulidad" \
+  --problem "Nulidad de acto administrativo por incompetencia" \
+  --facts "El 15/01/2026 se dictó resolución sin firma del ministro"
+
+# 5. CONTRACT_REVIEW - Review contract compliance
+python3 scripts/run_case_analysis.py intake CONTRACT_REVIEW "Contrato_JV_2026" \
+  --text-file contrato.txt \
+  --sector hydrocarbons
+
+# 6. CONSTITUTIONAL_TEST - Test constitutional compliance
+python3 scripts/run_case_analysis.py intake CONSTITUTIONAL_TEST "Test_Decreto" \
+  --text "Artículo 1. Se suspenden las garantías constitucionales..." \
+  --norm-type DECRETO
+
+# 7. VOTING_MAP - Legislative voting analysis
+python3 scripts/run_case_analysis.py intake VOTING_MAP "Reforma_LOH" \
+  --norm-type LEY_ORGANICA \
+  --political-context "Mayoría oficialista en AN"
+```
+
+### Intake Options Reference:
+
+| Option | Short | Description |
+|--------|-------|-------------|
+| `--problem` | `-p` | Problem statement (required for most workflows) |
+| `--outcome` | `-O` | Desired outcome |
+| `--text` | `-t` | Proposal/contract text to analyze |
+| `--text-file` | `-f` | File containing text to analyze |
+| `--norm-type` | `-n` | Type of norm (LEY_ORDINARIA, LEY_ORGANICA, DECRETO, etc.) |
+| `--keywords` | `-k` | Keywords for research (multiple allowed) |
+| `--sector` | `-s` | Industry sector (hydrocarbons, banking, labor, etc.) |
+| `--client` | | Client name (confidential) |
+| `--urgency` | | Urgency level (normal/emergency) |
+| `--facts` | | Facts/timeline description |
+| `--enforcement` | | Enforcement mechanism (criminal/administrative/civil/incentives) |
+
+### What the Intake Command Does:
+
+1. **Creates case structure** (folders, INTAKE.json, MANIFEST.md)
+2. **AUTO-TRIGGERS Module 2** (Brainstorm Engine) - generates 10-25 legal issues
+3. **Runs all required modules** based on workflow type
+4. **Generates all output files** (BRAINSTORM.md, VOTING_MAP.md, etc.)
+5. **Creates final report** in `reportes_legales/`
+
+**Token Savings: 90-99%** - Instead of loading code through context, Claude executes Python locally.
+
+---
+
 ## MANDATORY: Automatic Report Generation
 
 **EVERY response MUST generate or update a Markdown report file.**
@@ -59,6 +153,26 @@ python3 scripts/report_manager.py list
 # Get latest report
 python3 scripts/report_manager.py latest
 ```
+
+### Quick Reference - Master Orchestration (90-99% Token Savings):
+```bash
+# Database statistics (Constitution, Gaceta, TSJ)
+python3 scripts/run_case_analysis.py stats
+
+# Search all sources at once
+python3 scripts/run_case_analysis.py search "hidrocarburos"
+
+# Generate voting map for legislation
+python3 scripts/run_case_analysis.py voting LEY_ORDINARIA
+
+# Quick constitutional analysis of text
+python3 scripts/run_case_analysis.py quick "Artículo 1. Se deroga..."
+
+# Full case analysis with all modules
+python3 scripts/run_case_analysis.py analyze "Case_Name" --text "proposal text" --keywords tema1 tema2
+```
+
+**Token Reduction:** Instead of loading code through context, Claude executes Python locally with API access—achieving 90-99% token reduction for bulk operations.
 
 **IMPORTANT:** At the end of EVERY response, confirm the report file path to the user.
 
@@ -1130,9 +1244,31 @@ python3 scripts/init_case.py LAW-YYYYMMDD-001 "Proyecto de Ley [Nombre]"
 ### scripts/
 - `init_case.py` — Initialize new case folder structure
 - `constitutional_test.py` — Run automated constitutionality tests
-- `gaceta_verify.py` — Verify norm currency in Gaceta Oficial
-- `tsj_search.py` — Search TSJ jurisprudence database
+- `gaceta_verify.py` — Verify norm currency in Gaceta Oficial (45+ laws database)
+- `tsj_search.py` — Search TSJ jurisprudence database (70+ landmark cases)
 - `report_manager.py` — **Automatic report generation and management** (Module 15)
+- `constitution_diff.py` — **Constitutional Diff Engine** (Module 5)
+  - Compare proposed legislation against CRBV
+  - Identify constitutional conflicts and risks
+  - Risk scoring and compliance percentage
+  - Eternity clause (cláusulas pétreas) detection
+  - Amendment type recommendations
+- `tsj_scraper.py` — **Live TSJ Web Scraper**
+  - Fetch live jurisprudence from TSJ website
+  - Rate-limited requests (2s interval)
+  - 24-hour cache system
+  - Search, verify, and retrieve recent decisions
+- `gaceta_scraper.py` — **Live Gaceta Oficial Scraper**
+  - Verify norm publication in Gaceta Oficial
+  - 48-hour cache system
+  - Search by name, number, or type
+  - Publication verification with confidence scores
+- `voting_map.py` — **Voting Map Engine** (Module 17)
+  - Legislative voting requirement analysis
+  - Quorum and majority calculations
+  - Political feasibility scoring
+  - Step-by-step legislative timeline
+- `security.py` — Access control and audit logging
 
 ### references/
 - `crbv_articles.md` — Key constitutional articles reference
@@ -1160,6 +1296,17 @@ python3 scripts/init_case.py LAW-YYYYMMDD-001 "Proyecto de Ley [Nombre]"
   - Capítulos I-IX (objeto, derechos, autoridad, procedimientos, sanciones, recursos)
   - Disposiciones transitorias, derogatoria, final
   - Notas de redacción y verificación constitucional
+- `decreto.md` — **Decreto con Rango, Valor y Fuerza de Ley template**
+  - Estructura formal completa
+  - Requisitos constitucionales (Ley Habilitante)
+  - Materias no delegables
+  - Lista de verificación
+  - Ejemplos de considerandos
+- `resolucion.md` — **Resolución Administrativa template**
+  - Resolución ministerial, conjunta, de superintendencias
+  - Elementos esenciales y base legal
+  - Recursos administrativos procedentes
+  - Lista de verificación de forma y fondo
 
 ### assets/
 - `escudo_ascii.txt` — **ASCII Art del Escudo de Venezuela** para encabezados de reportes
