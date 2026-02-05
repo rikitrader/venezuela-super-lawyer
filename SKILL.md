@@ -511,7 +511,7 @@ Complete case analysis pipeline:
 7. **TSJ Forecast** — Module 13 execution
 8. **File Outputs** — Complete case folder per Module 10
 
-### Module 16 — Law & Resolution Generation Engine
+### Module 15 — Law & Resolution Generation Engine
 
 **Purpose:** Transform any legal problem/intake into a complete legislative or regulatory solution with formal drafting and implementation roadmap.
 
@@ -673,7 +673,7 @@ Create files in `/cases/[case_number]/`:
 
 ---
 
-### Module 17 — Law Passage & Voting Map Engine
+### Module 16 — Law Passage & Voting Map Engine
 
 **Purpose:** Map exactly how a law is approved in Venezuela, including votes required, quórum, stages, political/legal blockers, and fallback avenues if votes fail.
 
@@ -739,7 +739,7 @@ Explain why this classification matters for voting.
 | Tipo de Norma | Mayoría Requerida | Base de Cálculo |
 |---------------|-------------------|-----------------|
 | Ley Ordinaria | Simple | Presentes (más a favor que en contra) |
-| Ley Orgánica | Absoluta (2/3 presentes) | Presentes |
+| Ley Orgánica | Calificada (2/3 presentes) | Presentes |
 | Ley Habilitante | Calificada (3/5 total) | Total de diputados |
 | Enmienda CRBV | Mayoría AN + Referendo | AN + Electores |
 | Reforma CRBV | 2/3 AN + Referendo | Total AN + Electores |
@@ -910,7 +910,7 @@ If law does NOT get enough votes, propose alternatives:
 
 ---
 
-### Module 15 — Automatic Report Generation System (MANDATORY)
+### Module 17 — Automatic Report Generation System (MANDATORY)
 
 **CRITICAL REQUIREMENT:** Every response MUST generate or update a Markdown report file.
 
@@ -939,7 +939,6 @@ If law does NOT get enough votes, propose alternatives:
 
 **MANDATORY HEADER:** Every report MUST begin with the official header including ASCII Escudo.
 
-```markdown
 ```
             ╔══════════════════════════════════════════════════════════════╗
             ║         REPÚBLICA BOLIVARIANA DE VENEZUELA                   ║
@@ -1020,7 +1019,6 @@ inteligencia artificial legal. La información contenida en este reporte:
      VENEZUELA SUPER LAWYER — AI Legal Operating System
      "Supremacía Constitucional • Precisión Jurídica • Soluciones Reales"
 ═══════════════════════════════════════════════════════════════════════════════
-```
 ```
 
 #### Report Types

@@ -4,12 +4,7 @@ Venezuela Super Lawyer - TSJ Jurisprudence Search Script
 Search and analyze Tribunal Supremo de Justicia jurisprudence.
 
 EXPANDED DATABASE: 70+ landmark cases across all Salas
-
-Version: 1.0.0
 """
-
-__version__ = "1.0.0"
-__author__ = "Venezuela Super Lawyer"
 
 import sys
 import json

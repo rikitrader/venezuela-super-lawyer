@@ -5,12 +5,7 @@ Scrapes the Gaceta Oficial de Venezuela for norm verification.
 
 Gaceta Website: http://www.tsj.gob.ve/gaceta-oficial
 Alternative: https://pandectasdigital.com/
-
-Version: 1.0.0
 """
-
-__version__ = "1.0.0"
-__author__ = "Venezuela Super Lawyer"
 
 import os
 import sys
@@ -162,8 +157,8 @@ def read_cache(key: str) -> Optional[Dict[str, Any]]:
         try:
             with open(cache_path, 'r', encoding='utf-8') as f:
                 return json.load(f)
-        except (OSError, json.JSONDecodeError):
-            pass  # Cache miss or corrupted, will fetch fresh
+        except Exception:
+            pass
     return None
 
 
@@ -186,8 +181,8 @@ def clear_cache() -> int:
             try:
                 file.unlink()
                 count += 1
-            except OSError:
-                pass  # File in use or permission denied, skip
+            except Exception:
+                pass
     return count
 
 
@@ -249,16 +244,8 @@ def fetch_url(url: str, use_cache: bool = True, timeout: int = 30) -> Optional[s
         try:
             _rate_limiter.wait()
 
-            # Create SSL context with proper verification
-            # Only disable verification if explicitly requested via environment variable
+            # Create SSL context with certificate verification enabled
             ssl_context = ssl.create_default_context()
-            if os.environ.get("VSL_DISABLE_SSL_VERIFY", "").lower() == "true":
-                # WARNING: Only use this for development with known certificate issues
-                ssl_context.check_hostname = False
-                ssl_context.verify_mode = ssl.CERT_NONE
-                if attempt == 0:
-                    print("WARNING: SSL verification disabled via VSL_DISABLE_SSL_VERIFY", file=sys.stderr)
-            # Otherwise, use default secure settings (verify=True)
 
             # Create request with browser-like headers
             request = urllib.request.Request(

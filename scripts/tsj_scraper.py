@@ -4,12 +4,7 @@ Venezuela Super Lawyer - TSJ Web Scraper Module
 Scrapes the Tribunal Supremo de Justicia website for live jurisprudence.
 
 TSJ Website: http://historico.tsj.gob.ve/decisiones/
-
-Version: 1.0.0
 """
-
-__version__ = "1.0.0"
-__author__ = "Venezuela Super Lawyer"
 
 import os
 import sys
@@ -129,8 +124,8 @@ def read_cache(key: str) -> Optional[Dict[str, Any]]:
         try:
             with open(cache_path, 'r', encoding='utf-8') as f:
                 return json.load(f)
-        except (OSError, json.JSONDecodeError):
-            pass  # Cache miss or corrupted, will fetch fresh
+        except Exception:
+            pass
     return None
 
 
@@ -153,8 +148,8 @@ def clear_cache() -> int:
             try:
                 file.unlink()
                 count += 1
-            except OSError:
-                pass  # File in use or permission denied, skip
+            except Exception:
+                pass
     return count
 
 

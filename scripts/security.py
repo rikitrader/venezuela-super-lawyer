@@ -90,9 +90,9 @@ def require_auth(func):
             print_access_denied("No access key provided. Set VSL_ACCESS_KEY environment variable.")
             sys.exit(1)
 
-        # In production, compare against stored hash
-        # For now, just verify key is set
-        if len(key) < 8:
+        # Verify key against stored hash
+        provided_hash = hash_key(key)
+        if provided_hash != VALID_PASSWORD_HASH:
             log_access(f"Call to {func.__name__}", False, "Invalid access key")
             print_access_denied("Invalid access key.")
             sys.exit(1)

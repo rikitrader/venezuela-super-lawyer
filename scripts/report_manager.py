@@ -638,12 +638,12 @@ def append_to_report(
         else:
             section_number = 1
 
-    # Update the "Última Actualización" field
+    # Update the "Última Actualización" field (uses box-drawing │ not pipe |)
     now = datetime.now()
-    update_pattern = r'\| \*\*Última Actualización\*\* \| .+ \|'
+    update_pattern = r'│ Última Actualización    │ .+? │'
     updated_content = re.sub(
         update_pattern,
-        f"| **Última Actualización** | {now.strftime('%Y-%m-%d %H:%M:%S')} |",
+        f"│ Última Actualización    │ {now.strftime('%Y-%m-%d %H:%M:%S'):<50} │",
         existing_content
     )
 
@@ -780,11 +780,11 @@ def list_reports(base_dir: str = None) -> List[Dict]:
     for report_file in reports_dir.glob("*.md"):
         content = report_file.read_text(encoding='utf-8')
 
-        # Extract metadata
-        id_match = re.search(r'\| \*\*ID Reporte\*\* \| `(.+?)` \|', content)
-        date_match = re.search(r'\| \*\*Fecha de Creación\*\* \| (.+?) \|', content)
-        type_match = re.search(r'\| \*\*Tipo\*\* \| (.+?) \|', content)
-        update_match = re.search(r'\| \*\*Última Actualización\*\* \| (.+?) \|', content)
+        # Extract metadata (box-drawing chars │, not pipe |)
+        id_match = re.search(r'│ ID Reporte\s+│\s*(.+?)\s*│', content)
+        date_match = re.search(r'│ Fecha de Creación\s+│\s*(.+?)\s*│', content)
+        type_match = re.search(r'│ Tipo\s+│\s*(.+?)\s*│', content)
+        update_match = re.search(r'│ Última Actualización\s+│\s*(.+?)\s*│', content)
 
         # Extract title (first H1)
         title_match = re.search(r'^# (.+)$', content, re.MULTILINE)
@@ -841,9 +841,8 @@ def get_latest_report(base_dir: str = None) -> Optional[Path]:
     return Path(reports[0]['path'])
 
 
-@require_auth
 def main():
-    """Main function for CLI usage. Requires authentication."""
+    """Main function for CLI usage."""
 
     if len(sys.argv) < 2:
         print("Venezuela Super Lawyer - Report Manager")

@@ -63,17 +63,16 @@ venezuela-super-lawyer/
 
 ### 1. init_case.py - Inicializador de Casos
 ```bash
-python3 scripts/init_case.py <nombre_caso> [--tipo civil|penal|administrativo|constitucional]
+python3 scripts/init_case.py <case_number> <client_name> [--tipo civil|penal|administrativo|constitucional|laboral|mercantil] [base_path]
 ```
 Crea estructura de directorios para un nuevo caso legal.
 
 ### 2. constitutional_test.py - Test de Constitucionalidad
 ```bash
-python3 scripts/constitutional_test.py analyze --text "texto a analizar"
-python3 scripts/constitutional_test.py article 49
-python3 scripts/constitutional_test.py search "debido proceso"
+python3 scripts/constitutional_test.py "<descripción de la norma>"
+python3 scripts/constitutional_test.py --json <archivo_input.json>
 ```
-Analiza textos contra la Constitución para identificar conflictos.
+Ejecuta batería de 5 tests constitucionales (supremacía, derechos, competencia, debido proceso, interés público).
 
 ### 3. constitution_diff.py - Motor de Diferencias
 ```bash
@@ -127,11 +126,13 @@ Scraper web para verificación de normas en Gaceta Oficial.
 
 ### 8. report_manager.py - Gestor de Reportes
 ```bash
+python3 scripts/report_manager.py new '<tema>' [--case <caso>] [--client <cliente>]
+python3 scripts/report_manager.py append <report_id> <titulo_seccion> <archivo_contenido>
 python3 scripts/report_manager.py list
-python3 scripts/report_manager.py create "Análisis de Constitucionalidad"
-python3 scripts/report_manager.py view <id_reporte>
+python3 scripts/report_manager.py latest
+python3 scripts/report_manager.py toc <report_id>
 ```
-Gestiona la creación y almacenamiento de reportes legales.
+Gestiona la creación, actualización y listado de reportes legales.
 
 ### 9. security.py - Módulo de Seguridad
 ```bash

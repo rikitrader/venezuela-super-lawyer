@@ -4,12 +4,7 @@ Venezuela Super Lawyer - Gaceta Oficial Verification Script
 Verifies norm currency and generates Gaceta Oficial citations.
 
 EXPANDED DATABASE: 45+ Major Venezuelan Laws and Codes
-
-Version: 1.0.0
 """
-
-__version__ = "1.0.0"
-__author__ = "Venezuela Super Lawyer"
 
 import sys
 import json
